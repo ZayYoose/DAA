@@ -1,0 +1,59 @@
+@startuml RestaurantFlowchart
+start
+:Pelanggan Memasuki Restoran;
+:Pelayan Menyapa dan Berikan Menu;
+:Pelayan Menunggu Pesanan;
+if (Pelanggan Membutuhkan Waktu?) then (Ya)
+  :Pelayan Menunggu;
+else (Tidak)
+  :Pelanggan Siap Memesan;
+endif
+:Ambil Pesanan;
+
+if (Permintaan Khusus?) then (Ya)
+  :Catat Permintaan Khusus;
+  if (Permintaan Bisa Dipenuhi?) then (Ya)
+    :Lanjutkan Proses Pesanan;
+  else (Tidak)
+    :Beritahu Pelanggan;
+    :Pelanggan Ubah Pesanan;
+  endif
+else (Tidak)
+  :Proses Pesanan Langsung;
+endif
+
+:Kirim Pesanan ke Dapur;
+if (Bahan Tersedia?) then (Ya)
+  :Chef Memasak Pesanan;
+else (Tidak)
+  :Informasikan ke Pelayan;
+  :Diskusi dengan Pelanggan;
+  if (Pesan Menu Baru?) then (Ya)
+    :Kembali ke "Ambil Pesanan";
+  else (Tidak)
+    :Batalkan Pesanan;
+  endif
+endif
+
+:Pesanan Siap Disajikan;
+:Pelayan Mengantar Pesanan ke Meja;
+:Pelanggan Menikmati Hidangan;
+
+if (Pesanan Tambahan?) then (Ya)
+  :Kembali ke "Pelayan Menunggu Pesanan";
+else (Tidak)
+  :Minta Tagihan;
+endif
+
+:Pelayan Menghitung Tagihan;
+:Tampilkan Rincian Tagihan ke Pelanggan;
+if (Pembayaran Dilakukan?) then (Ya)
+  :Selesaikan Transaksi;
+  :Ucapkan Terima Kasih;
+else (Tidak)
+  :Diskusikan Penyelesaian;
+endif
+
+:Pelanggan Meninggalkan Restoran;
+stop
+@enduml

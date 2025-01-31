@@ -1,0 +1,90 @@
+@startuml
+left to right direction
+
+actor Pengguna
+actor Admin
+actor Waiters
+actor AdminDapur
+actor AdminKasir
+
+package "Sistem Validasi dan Akses" {
+    usecase "Login" as Login
+    usecase "Logout" as Logout
+    usecase "Validasi" as Validasi
+}
+
+package "Sistem Menu" {
+    usecase "Pesan Menu" as Pesan_Menu
+    usecase "Data Menu" as Data_menu
+    usecase "Tambah Menu" as Tambah_Menu
+    usecase "Edit Menu" as Edit_Menu
+    usecase "Hapus Menu" as Hapus_Menu
+    usecase "Lihat Promosi" as Lihat_Promosi
+}
+
+package "Sistem Promosi" {
+    usecase "Promosi" as Promosi
+    usecase "Tambah Promosi" as Tambah_Promosi
+    usecase "Edit Promosi" as Edit_Promosi
+    usecase "Hapus Promosi" as Hapus_Promosi
+}
+
+package "Sistem Order" {
+    usecase "Order Pelanggan" as Order_Pelanggan
+    usecase "Reservasi" as Reservasi
+    usecase "Data Order" as Data_Order
+    usecase "Cek Pesanan" as Cek_Pesanan
+    usecase "Konfirmasi Pesanan" as Konfirmasi_Pesanan
+}
+
+package "Sistem Pembayaran" {
+    usecase "DP Pembayaran" as DP_Pembayaran
+    usecase "Data Pembayaran" as Data_Pembayaran
+    usecase "Konfirmasi Pembayaran" as Konfirmasi_Pembayaran
+}
+
+Pengguna --> Pesan_Menu
+Pengguna --> Reservasi
+Pengguna --> Order_Pelanggan
+Pengguna --> Cek_Pesanan
+Pengguna --> Konfirmasi_Pembayaran
+Waiters --> Pesan_Menu
+Waiters --> Reservasi
+Waiters --> Order_Pelanggan
+Waiters --> Cek_Pesanan
+Waiters --> Konfirmasi_Pembayaran
+AdminDapur --> Data_Order
+AdminKasir --> Data_Pembayaran
+Admin --> Data_menu
+Admin --> Tambah_Menu
+Admin --> Edit_Menu
+Admin --> Hapus_Menu
+Admin --> Tambah_Promosi
+Admin --> Edit_Promosi
+Admin --> Hapus_Promosi
+DP_Pembayaran --> Lihat_Promosi
+Konfirmasi_Pesanan ..> Promosi : <<include>>
+Konfirmasi_Pesanan ..> Validasi
+Promosi ..> Tambah_Promosi
+Promosi ..> Edit_Promosi
+Promosi ..> Hapus_Promosi
+Data_menu ..> Tambah_Menu
+Data_menu ..> Edit_Menu
+Data_menu ..> Hapus_Menu
+Data_menu ..> Validasi : <<include>>
+Validasi ..> Logout : <<include>>
+Login ..> Validasi
+Data_Pembayaran ..> Validasi : <<include>>
+Konfirmasi_Pembayaran ..> Data_Pembayaran
+Cek_Pesanan ..> Data_Order
+Order_Pelanggan ..> Data_Order
+Reservasi ..> Data_Order
+Pesan_Menu ..> Data_menu
+AdminDapur --> Konfirmasi_Pesanan
+AdminKasir --> Konfirmasi_Pembayaran
+Pengguna --> Login
+Admin --> Login
+Waiters --> Login
+AdminDapur --> Login
+AdminKasir --> Login
+@enduml
